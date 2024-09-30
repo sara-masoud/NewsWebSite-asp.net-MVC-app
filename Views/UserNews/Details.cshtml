@@ -1,0 +1,71 @@
+﻿@model NewsWebSite.Models.News
+
+    <div>
+        <h4>News Details</h4>
+        <hr />
+        <table>
+            <tr>
+                <td style="width:100px">  @Html.DisplayNameFor(model => model.Category.categoryName)</td>
+                <td style="width: 15px"> :</td>
+                <td>  @Html.DisplayFor(model => model.Category.categoryName)</td>
+                <td></td>
+
+            </tr>
+            <tr>
+                <td>    @Html.DisplayNameFor(model => model.title)</td>
+                <td>:</td>
+                <td> @Html.DisplayFor(model => model.title)</td>
+                <td></td>
+
+            </tr>
+            <tr>
+                <td>Image</td>
+                <td>
+                    :
+                </td>
+                <td>
+
+                    <img src="@Url.Content(Model.image !=null?Model.image:"~/attachment/No_Image.jpg")"
+                         style="width:200px;"
+                         alt="no image">
+                </td>
+
+                <td>
+                    @Html.ActionLink("Update image", "updateImage", new { id = Model.Id }, new {@class="btn btn-primary" })
+                </td>
+            </tr>
+            <tr>
+
+                <td>
+                    @Html.DisplayNameFor(model => model.decription)
+                </td>
+                <td style="width:10px">
+                    :
+                </td>
+
+                <td>
+                    @Html.DisplayFor(model => model.decription)
+                </td>
+                <td></td>
+
+            </tr>
+            <tr>
+                <td>
+                    @Html.DisplayNameFor(model => model.Dateofoccurrence)
+                </td>
+                <td>
+                    :
+                </td>
+
+                <td>
+                    @Html.DisplayFor(model => model.Dateofoccurrence)
+                </td>
+                <td></td>
+
+            </tr>
+        </table>
+    </div>
+    <p>
+        @Html.ActionLink("Back", "index", null, new {@class="btn btn-primary"})
+    </p>
+

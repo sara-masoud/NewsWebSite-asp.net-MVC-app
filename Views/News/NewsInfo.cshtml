@@ -1,0 +1,31 @@
+﻿@model NewsWebSite.Models.News
+
+<div class="card col-4" style="width: 18rem;">
+    <img class="card-img-top" src="@Url.Content(Model.image !=null?Model.image:"~/attachment/No_Image.jpg")" alt="no image">
+    <div class="card-body">
+        <h5 class="card-title">@Model.title</h5>
+        <h6>@Model.Category.categoryName</h6>
+        <p class="card-text">
+            @{
+                Model.decription = Model.decription.Length > 200
+                                ? Model.decription.Substring(0, 200) + "..."
+                                : Model.decription;
+
+            }
+            @Model.decription
+        </p>
+
+        @Ajax.ActionLink("view Details", "getNewsDetails", "news", new { id = Model.Id },
+
+       new AjaxOptions
+       {
+           HttpMethod = "get",
+           UpdateTargetId = "divModal",
+           InsertionMode = InsertionMode.Replace,
+           OnComplete = "show"
+
+
+       })
+
+    </div>
+</div>

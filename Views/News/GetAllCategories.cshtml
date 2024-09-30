@@ -1,0 +1,20 @@
+﻿
+
+@using NewsWebSite.Models;
+
+@foreach (var item in (List<Category>)ViewBag.categories)
+{
+
+    @Ajax.ActionLink(@item.categoryName, "GetNewsByCategoryId", "News",new { id= item.ID},
+
+new AjaxOptions
+{
+    HttpMethod= "Get",
+      UpdateTargetId = "news",
+    InsertionMode = InsertionMode.Replace
+
+}, new {@class="dropdown-item"}
+
+    )
+
+}

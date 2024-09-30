@@ -1,0 +1,123 @@
+﻿@using NewsWebSite.Models
+@model user
+
+@{
+    ViewBag.Title = "Register";
+    //Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+@section scripts{
+    <script>
+        function checkfiles() {
+            var uploaderVal = document.getElementById("fileUploader").value;
+            var lblError = document.getElementById("lblError");
+            if (uploaderVal) {
+                var permittedExtensions = /(\.jpg|\.jpeg|\.gif|\.png)$/i;
+                if (!permittedExtensions.exec(uploaderVal)) {
+                    lblError.innerHTML = "File extension is not supported, You should upload jpg or jpeg or gif or png ";
+                    return false;
+                }
+            }
+        }
+
+        $(function () {
+            $('.field-validation-valid').addClass('text-danger');
+
+        })
+
+
+    </script>
+
+
+
+}
+<div id="intro" class="bg-image shadow-2-strong">
+    <div class="mask d-flex align-items-center h-100" style="background-color: rgba(0, 0, 0, 0.8);">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-xl-5 col-md-8">
+                    @using (Html.BeginForm("Register", "auth", FormMethod.Post, new
+                    {
+                        @class = "bg-white rounded shadow-5-strong p-5",
+                        enctype = "multipart/form-data"
+                    }))
+                    {
+                        @Html.AntiForgeryToken()
+                        <h2>Register</h2>
+                        <div class="form-outline mb-4" data-mdb-input-init>
+                            @Html.LabelFor(x => x.firstName, new { @class = "form-label", @for = "firstName" })
+
+                            @Html.EditorFor(x => x.firstName, new { htmlAttributes = new { @class = "form-control" } })
+
+                            @Html.ValidationMessageFor(x => x.firstName)
+
+                        </div>
+                        <div class="form-outline mb-4" data-mdb-input-init>
+
+                            @Html.LabelFor(x => x.lastName, new { @class = "form-label", @for = "lastName" })
+                            @Html.EditorFor(x => x.lastName, new { htmlAttributes = new { @class = "form-control" } })
+
+                            @Html.ValidationMessageFor(x => x.lastName)
+
+                        </div>
+                        <!-- Email input -->
+                        <div class="form-outline mb-4" data-mdb-input-init>
+                            @Html.LabelFor(x => x.email, new { @class = "form-label", @for = "email" })
+                            @Html.EditorFor(x => x.email, new { htmlAttributes = new { @class = "form-control" } })
+
+                            @Html.ValidationMessageFor(x => x.email)
+
+                        </div>
+
+
+                        <div class="form-outline mb-4" data-mdb-input-init>
+                            @Html.LabelFor(x => x.pass_word, new { @class = "form-label"})
+                            @Html.PasswordFor(x => x.pass_word, new { @class = "form-control" })
+
+                            @Html.ValidationMessageFor(x => x.pass_word)
+
+                        </div>
+
+                        <div class="form-outline mb-4" data-mdb-input-init>
+                            @Html.LabelFor(x => x.Confirm_password, new { @class = "form-label"})
+                            @Html.PasswordFor(x => x.Confirm_password, new { @class = "form-control" })
+
+                            @Html.ValidationMessageFor(x => x.Confirm_password)
+
+                        </div>
+
+                        <div class="form-outline mb-4" data-mdb-input-init>
+                            <label class="form-label" for="fileUploader">Your Photo</label>
+                            <input type="file" id="fileUploader" name="photo" class="form-control" />
+                            <span id="lblError" style="color:red;">@ViewBag.fileError </span>
+
+
+                        </div>
+                        <div class="row mb-4">
+                            <div class="col d-flex justify-content-center">
+
+                                <div>
+                                    <label for="btnLogin">
+                                        Already have an account?
+                                    </label>
+
+                                    @Html.ActionLink("Login", "login", "Auth")
+                                </div>
+                            </div>
+
+                        </div>
+                        <input type="submit" onclick="return checkfiles()" class="btn btn-primary btn-block" data-mdb-ripple-init value="Sign up" />
+                    }
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+

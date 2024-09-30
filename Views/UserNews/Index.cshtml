@@ -1,0 +1,102 @@
+﻿
+@using PagedList.Mvc;
+@model PagedList.IPagedList<NewsWebSite.Models.News>
+
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+
+<br />
+<p>
+    @Html.ActionLink("Add", "Create", null, new { @class = "btn btn-primary" })
+</p>
+
+
+
+@section scripts{
+    <script type="text/javascript">
+    $(document).ready(function() {
+        var deleted = '@Html.Raw(TempData["deleted"])';
+        if (deleted) {
+            alert("deleted successfully");
+        }
+
+    });
+    </script>
+}
+
+
+<table class="table">
+    @if (Model.Count() > 0)
+    {
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model=>model[0].Category.categoryName)
+            </th>
+
+            <th>
+                @Html.DisplayNameFor(model => model[0].title)
+            </th>
+
+            <th>
+                @Html.DisplayNameFor(model => model[0].decription)
+            </th>
+            <th>
+
+                @Html.ActionLink("Date", "Index", new { sortOrder = ViewBag.DateSortParm})
+              
+            </th>
+            <th></th>
+        </tr>
+    }
+    else
+    {
+        <tr>
+
+            <td style="text-align:center">
+
+                No News has been added yet.
+            </td>
+        </tr>
+
+    }
+
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Category.categoryName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.title)
+            </td>
+
+            <td>
+                @{
+                    item.decription = item.decription.Length > 200
+                                ? item.decription.Substring(0, 200) + "..."
+                                : item.decription;
+
+                }
+                @item.decription
+
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Dateofoccurrence)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.Id }, new { onclick = "return confirm('Are you sure you want to delete this news?')" })
+            </td>
+        </tr>
+    }
+
+</table>
+Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+
+@Html.PagedListPager(Model, page => Url.Action("Index", new { page, sortOrder = ViewBag.CurrentSort }
+  ))
+
+
+
+

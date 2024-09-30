@@ -1,0 +1,71 @@
+﻿
+@using NewsWebSite.Models
+
+@model UserInfo
+@{
+    ViewBag.Title = "Profile";
+}
+
+
+
+<h2>welcome  @Model.firstName</h2>
+<div class="container">
+    <div class="row">
+        @using (Html.BeginForm("EditProfile", "user", FormMethod.Get))
+        {
+            @Html.HiddenFor(x => x.userId)
+            <div >
+                <table>
+                    <tr>
+                        <td>
+                        Name
+                        
+                        </td>
+                        <td width="10px">
+                            :
+                        </td>
+                        <td style="width:300px">
+                            @string.Format(@Model.firstName + " " + @Model.lastName)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td> brief</td>
+                        <td width="10px">
+                            :
+                        </td>
+                        <td>
+                            @Model.brief
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td colspan="2">
+                            <input type="submit" value="Edit Profile" class="btn btn-link" />
+
+                        </td>
+                    </tr>
+                </table>
+
+            </div>
+        }
+
+        @using (Html.BeginForm("updatePersonalPhoto", "user", new { id=Model.userId},FormMethod.Get))
+        {
+    <div class="col-md-6">
+        <img src=@Url.Content(!string.IsNullOrEmpty( Model.photo) ?Model.photo:"~/attachment/No_Image.jpg")
+             style="width:200px;"
+             alt="personal photo" />
+
+        <input type="submit" value="Update photo" class="btn btn-link" />
+
+
+    </div>
+        }
+
+    </div>
+    
+    </div>
+
+
+
+

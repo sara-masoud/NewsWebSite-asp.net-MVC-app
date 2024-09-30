@@ -1,0 +1,40 @@
+﻿@model IEnumerable<NewsWebSite.Models.News>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<div id="divModal">
+
+</div>
+
+
+<div class="container">
+    <div class="row">
+        @foreach (var item in Model)
+        {
+            Html.RenderPartial("NewsInfo", item);
+
+
+        }
+
+
+    </div>
+</div>
+
+
+@section scripts{
+    <script>
+
+        function show() {
+            $('#newsModal').modal('show')
+        }
+    </script>
+
+
+}
+
+
+
+
+

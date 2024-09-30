@@ -1,0 +1,100 @@
+﻿@model NewsWebSite.Models.News
+
+@{
+    ViewBag.Title = "Create";
+}
+
+
+@using (Html.BeginForm("Create", "usernews",FormMethod.Post,new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+
+<div class="form-horizontal">
+    <h4>Add News</h4>
+    <hr />
+    <div class="form-group">
+        @Html.LabelFor(model => model.title, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-6">
+            @Html.EditorFor(model => model.title, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.title, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    @*<div class="form-group">
+        @Html.LabelFor(model => model.brief, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.brief, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.brief, "", new { @class = "text-danger" })
+        </div>
+    </div>*@
+
+<div class="form-group">
+    @Html.LabelFor(model => model.decription, htmlAttributes: new { @class = "control-label col-md-2" })
+    <span id="NoOfAllowedChars">
+        Max Characters 500 :
+    </span>
+    <div class="col-md-6">
+        @Html.EditorFor(model => model.decription, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.ValidationMessageFor(model => model.decription, "", new { @class = "text-danger" })
+    </div>
+</div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Category_Id, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-6">
+            @Html.DropDownList("Category_Id",null ,"-- select--", htmlAttributes: new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.Category_Id, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.Dateofoccurrence, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-6">
+            @Html.EditorFor(x => x.Dateofoccurrence, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+          
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.image, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-6">
+
+            <input type="file" name="image" id="image" class = "form-control" accept="image/png, image/jpeg,image/jpg"/>
+        </div>
+    </div>
+
+
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Add" class="btn btn-primary" />
+        </div>
+    </div>
+</div>
+}
+
+@section scripts{
+        <script>
+            $(function () {
+                $("#Dateofoccurrence").datepicker(
+                    {
+                        dateFormat: "mm/dd/yy",
+                        changeMonth: true,
+                       changeYear: true
+                       
+                    });
+            });
+
+
+            $('#decription').on('input', (e) => {
+
+                let val = document.getElementById('decription').value;
+                document.getElementById('NoOfAllowedChars').innerText = "Max Characters 500 :" + val.length;
+
+                if (val.length > 500) {
+                    document.getElementById('decription').value = val.substring(0, 500);
+                    return false;
+                }
+            })
+        </script>
+}
+

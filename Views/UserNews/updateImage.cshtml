@@ -1,0 +1,36 @@
+﻿
+@{
+    ViewBag.Title = "updateImage";
+}
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-xl-5 col-md-8">
+            @using (Html.BeginForm("updateImage", "UserNews", FormMethod.Post, new
+            {
+                @class = "bg-white rounded shadow-5-strong p-5",
+                enctype = "multipart/form-data"
+            }))
+            {
+                @Html.AntiForgeryToken()
+                <h2>Update image</h2>
+                <div class="form-outline mb-4" data-mdb-input-init>
+                    <label class="form-label" for="fileUploader">Image</label>
+                    <input type="file" id="fileUploader" name="image"
+                           accept="image/png, image/jpeg,image/jpg" class="form-control" />
+                    <span id="lblError" style="color:red;">@ViewBag.fileError </span>
+
+                </div>
+
+                <input type="submit" onclick="return checkfiles()"
+                       class="btn btn-primary" value="Save" />
+
+                @Html.ActionLink("Back", "Details", null, new { @class = "btn btn-default" })
+            }
+
+        </div>
+    </div>
+</div>
+
+
+

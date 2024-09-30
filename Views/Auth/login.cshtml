@@ -1,0 +1,90 @@
+﻿@using NewsWebSite.Models
+@model LoginData
+@{
+    ViewBag.Title = "login";
+    // Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section styles{
+    <link href="~/Content/mdb.min.css" rel="stylesheet" />
+    <style>
+        #intro {
+            background-image: url(https://mdbootstrap.com/img/new/fluid/city/008.jpg);
+            height: 100vh;
+        }
+
+        .navbar .nav-link {
+            color: #fff !important;
+        }
+    </style>
+}
+
+
+<div id="intro" class="bg-image shadow-2-strong">
+    <div class="mask d-flex align-items-center h-100" style="background-color: rgba(0, 0, 0, 0.8);">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-xl-5 col-md-8">
+                    @using (Html.BeginForm("login", "auth", FormMethod.Post, new
+                    {
+                        @class = "bg-white rounded shadow-5-strong p-5"
+                    }))
+                    {
+                        @Html.AntiForgeryToken()
+                        <h2>Login</h2>
+
+                        <div class="form-outline mb-4" data-mdb-input-init>
+                            @Html.ValidationMessageFor(x => x.Email,"",new {@class="text-danger"})
+                            @Html.EditorFor(x => x.Email, new { htmlAttributes = new { @class = "form-control" } })
+
+                            @Html.LabelFor(x => x.Email, new { @class = "form-label" })
+
+                        </div>
+
+                        <div class="form-outline mb-4" data-mdb-input-init>
+                            @Html.ValidationMessageFor(x => x.Password, "", new { @class = "text-danger" })
+
+                            @Html.PasswordFor(x => x.Password, new { @class = "form-control" })
+
+                            @Html.LabelFor(x => x.Password, new { @class = "form-label" })
+
+                        </div>
+
+                        <div>
+                            <span style="color:red">@ViewBag.loginError</span>
+                        </div>
+
+
+                        <div class="row mb-4">
+
+                            <div class="col d-flex justify-content-center">
+                                <!-- Checkbox -->
+                                <div class="form-check">
+                                    @Html.CheckBox("remeber")
+                                    <label class="form-check-label" for="remeber">
+                                        Remember me
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col text-center">
+
+                                @Html.ActionLink("Forgot password?", "ForgotPassword", "auth")
+                            </div>
+                            <div class="col text-center">
+                                <p>New user ? @Html.ActionLink("Register", "register", "auth")</p>
+                               
+                            </div>
+
+
+
+                            <button type="submit" class="btn btn-primary btn-block" data-mdb-ripple-init>Sign in</button>
+
+
+                        </div>
+                    }
+                    </div>
+        </div>
+    </div>
+</div>
+</div>
+<script src="~/Content/mdb.umd.min.js"></script>
